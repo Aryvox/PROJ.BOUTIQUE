@@ -1,20 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./main.css">
-    <title>Document</title>
+    <title>Boutique Informatique</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="backdrop"></div>
-    <div class="modal">
-        Mon popup
-        <button class="close-btn">Close</button>
+    <header>
+        <nav class="main-nav">
+            <div class="logo">
+                <h1>Boutique Informatique</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active">Accueil</a>
+                <a href="#products">Produits</a>
+                <a href="#wishlist">Liste de souhaits</a>
+                <a href="#cart">Panier</a>
+            </div>
+            <div class="nav-icons">
+                <button id="wishlist-btn"><i class="fas fa-heart"></i></button>
+                <button id="cart-btn"><i class="fas fa-shopping-cart"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Découvrez nos composants informatiques</h2>
+            <p>Les meilleurs prix pour monter votre PC</p>
+        </section>
+
+        <section id="products" class="products-section">
+            <div class="filters">
+                <div class="search">
+                    <input type="text" id="search-input" placeholder="Rechercher un produit...">
+                </div>
+                <div class="sort">
+                    <select id="sort-select">
+                        <option value="price-asc">Prix croissant</option>
+                        <option value="price-desc">Prix décroissant</option>
+                    </select>
+                </div>
+                <div class="category-filters">
+                    <!-- Les filtres de catégorie seront générés dynamiquement -->
+                </div>
+            </div>
+
+            <div class="products-grid" id="products-container">
+                <!-- Les produits seront chargés dynamiquement -->
+            </div>
+
+            <div class="pagination">
+                <button id="prev-page" disabled>Précédent</button>
+                <span id="page-info">Page 1</span>
+                <button id="next-page">Suivant</button>
+            </div>
+        </section>
+    </main>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="product-details">
+                <!-- Les détails du produit seront chargés dynamiquement -->
+            </div>
+        </div>
     </div>
 
-    <button class="modal-btn">Open Modal</button>
-    <button class="btn">Get Data</button>
-    <script src="./js/main.js"></script>
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Votre Panier</h2>
+            <div id="cart-items">
+                <!-- Les articles du panier seront chargés dynamiquement -->
+            </div>
+            <div class="cart-total">
+                <p>Total: <span id="cart-total-price">0.00€</span></p>
+                <button id="checkout-btn">Passer la commande</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="wishlist-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Liste de Souhaits</h2>
+            <div id="wishlist-items">
+                <!-- Les articles de la liste de souhaits seront chargés dynamiquement -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Boutique Informatique. Tous droits réservés.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
 </body>
 </html>
