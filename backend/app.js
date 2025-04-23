@@ -7,8 +7,8 @@ app.use(cors({
     origin: "*"
 }));
 
-const sneakersRoutes = require('./routes/sneakers');
-app.use(sneakersRoutes);
+const productsRoutes = require('./routes/products');
+app.use(productsRoutes);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
