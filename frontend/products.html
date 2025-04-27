@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produits - Boutique PC</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">Boutique PC</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="products.html" class="active">Produits</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button id="wishlist-btn" class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="wishlist-count">0</span>
+                </button>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="products-section">
+        <div class="filters">
+            <div class="search">
+                <input type="text" placeholder="Rechercher un produit...">
+            </div>
+            <div class="sort">
+                <select>
+                    <option value="">Trier par</option>
+                    <option value="price-asc">Prix croissant</option>
+                    <option value="price-desc">Prix décroissant</option>
+                    <option value="name-asc">Nom A-Z</option>
+                    <option value="name-desc">Nom Z-A</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="products-grid" class="products-grid">
+            <!-- Les produits seront chargés dynamiquement ici -->
+        </div>
+
+        <div class="pagination">
+            <button id="prev-page" class="btn secondary">Précédent</button>
+            <span id="page-info"></span>
+            <button id="next-page" class="btn secondary">Suivant</button>
+        </div>
+    </main>
+
+    <!-- Modal des favoris -->
+    <div id="wishlist-modal" class="wishlist-modal">
+        <div class="wishlist-modal-content">
+            <div class="wishlist-modal-header">
+                <h2>Votre liste de souhaits</h2>
+                <button class="wishlist-modal-close">&times;</button>
+            </div>
+            <div id="wishlist-items" class="wishlist-items">
+                <!-- Les articles de la liste de souhaits seront chargés ici -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-nav">
+            <a href="index.html">Accueil</a>
+            <a href="products.html">Produits</a>
+            <a href="cart.html">Panier</a>
+        </div>
+    </footer>
+
+    <script type="module" src="js/products.js"></script>
+</body>
+</html> 

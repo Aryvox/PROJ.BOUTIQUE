@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détail du produit - Boutique PC</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">Boutique PC</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="products.html">Produits</a></li>
+                <li><a href="about.html">À propos</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="wishlist.html" class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="wishlist-count">0</span>
+                </a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="product-detail-container">
+        <div class="product-detail">
+            <div class="product-images">
+                <img id="main-image" src="" alt="Image principale du produit">
+                <div id="thumbnail-container"></div>
+            </div>
+            
+            <div class="product-info">
+                <h1 id="product-name"></h1>
+                
+                <div class="product-pricing">
+                    <span id="original-price" class="original-price"></span>
+                    <span id="product-price" class="current-price"></span>
+                    <span id="product-discount" class="discount-badge"></span>
+                </div>
+                
+                <div class="product-availability">
+                    <span id="product-stock"></span>
+                </div>
+                
+                <div class="product-delivery">
+                    <span id="delivery-time"></span>
+                    <span id="delivery-price"></span>
+                </div>
+                
+                <div class="product-description" id="product-description"></div>
+                
+                <div class="product-specs">
+                    <h2>Spécifications</h2>
+                    <ul id="product-specs"></ul>
+                </div>
+                
+                <div class="product-actions">
+                    <div class="quantity-selector">
+                        <button id="decrease-quantity" class="quantity-btn">-</button>
+                        <input type="number" id="quantity" value="1" min="1" readonly>
+                        <button id="increase-quantity" class="quantity-btn">+</button>
+                    </div>
+                    
+                    <button id="add-to-cart" class="btn primary">Ajouter au panier</button>
+                    <button id="add-to-wishlist" class="btn secondary">
+                        <i class="fas fa-heart"></i>
+                        Ajouter aux favoris
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="similar-products" class="similar-products"></div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>À propos</h3>
+                <p>Votre boutique de composants PC de confiance.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liens utiles</h3>
+                <ul>
+                    <li><a href="about.html">À propos</a></li>
+                    <li><a href="products.html">Produits</a></li>
+                    <li><a href="cart.html">Panier</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@boutiquepc.com</p>
+                <p>Tél: 01 23 45 67 89</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Boutique PC. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/product-detail.js"></script>
+</body>
+</html> 

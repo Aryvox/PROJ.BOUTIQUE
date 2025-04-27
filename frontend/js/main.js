@@ -1,3 +1,7 @@
+import { productsManager } from './products.js';
+import { cartManager } from './cart.js';
+import { wishlistManager } from './wishlist.js';
+
 // Configuration de l'API
 const API_URL = 'http://localhost:3000/api';
 
@@ -144,19 +148,117 @@ function getSneakers() {
 }
 
 // Fonction pour afficher les notifications
-function showNotification(message, duration = 3000) {
+function showNotification(message, type = 'info', duration = 3000) {
     const notification = document.createElement('div');
-    notification.className = 'notification';
+    notification.className = `notification ${type}`;
     notification.textContent = message;
     document.body.appendChild(notification);
 
+    // Ajouter la classe show après un court délai pour l'animation
+    setTimeout(() => notification.classList.add('show'), 10);
+
     setTimeout(() => {
-        notification.remove();
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
     }, duration);
 }
 
-// Fonction pour charger les produits depuis l'API
+// Fonction pour charger les produits depuis le fichier JSON
 async function loadProducts() {
+    try {
+        const response = await fetch('../backend/data.json');
+        const data = await response.json();
+        return data.components;
+    } catch (error) {
+        console.error('Erreur lors du chargement des produits:', error);
+        return [];
+    }
+}
+
+// Fonction pour afficher les produits en réduction
+async function displayFeaturedProducts() {
+    const products = await loadProducts();
+    const featuredProducts = products.filter(product => product.reduction > 0);
+    const featuredGrid = document.getElementById('featured-grid');
+    
+    // Récupérer la wishlist du localStorage
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+    if (featuredGrid) {
+        featuredGrid.innerHTML = featuredProducts.map(product => {
+            const isInWishlist = wishlist.includes(product.id);
+            return `
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="../../${product.img_1}" alt="${product.name}">
+                        ${product.reduction ? `<span class="discount-badge">-${product.reduction}%</span>` : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <div class="price">
+                            ${product.reduction ? `
+                                <span class="original-price">${product.price}€</span>
+                                <span class="sale">${(product.price * (1 - product.reduction / 100)).toFixed(2)}€</span>
+                            ` : `
+                                <span>${product.price}€</span>
+                            `}
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart" data-id="${product.id}">
+                                <i class="fas fa-shopping-cart"></i> Ajouter au panier
+                            </button>
+                            <button class="add-to-wishlist ${isInWishlist ? 'in-wishlist' : ''}" data-id="${product.id}">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Ajouter les écouteurs d'événements pour les boutons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const productId = parseInt(e.target.closest('.add-to-cart').dataset.id);
+                const product = products.find(p => p.id === productId);
+                if (product) {
+                    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    cart.push(product);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    showNotification('Produit ajouté au panier', 'success');
+                }
+            });
+        });
+
+        document.querySelectorAll('.add-to-wishlist').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const productId = parseInt(e.target.closest('.add-to-wishlist').dataset.id);
+                const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+                const index = wishlist.indexOf(productId);
+                
+                if (index === -1) {
+                    // Ajouter à la wishlist
+                    wishlist.push(productId);
+                    e.target.closest('.add-to-wishlist').classList.add('in-wishlist');
+                    showNotification('Produit ajouté aux favoris', 'success');
+                } else {
+                    // Retirer de la wishlist
+                    wishlist.splice(index, 1);
+                    e.target.closest('.add-to-wishlist').classList.remove('in-wishlist');
+                    showNotification('Produit retiré des favoris', 'info');
+                }
+                
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            });
+        });
+    }
+}
+
+// Charger les produits en vedette au chargement de la page
+document.addEventListener('DOMContentLoaded', displayFeaturedProducts);
+
+// Fonction pour charger les produits depuis l'API
+async function loadProductsAPI() {
     try {
         const response = await fetch(`${API_URL}/products`);
         const products = await response.json();
@@ -245,7 +347,74 @@ function addProductEventListeners() {
 
 // Charger les produits au chargement de la page
 document.addEventListener('DOMContentLoaded', () => {
-    loadProducts();
+    loadProductsAPI();
     updateCartDisplay();
     updateWishlistDisplay();
 });
+
+// Fonction pour initialiser l'application
+function initApp() {
+    // Initialiser les gestionnaires
+    productsManager.init();
+    cartManager.init();
+    wishlistManager.init();
+
+    // Ajouter les styles pour les badges
+    const style = document.createElement('style');
+    style.textContent = `
+        .nav-icons button {
+            position: relative;
+        }
+        .nav-icons button[data-count]::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 50%;
+            min-width: 1.2rem;
+            text-align: center;
+        }
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--card-background);
+            color: var(--text-color);
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+        .notification.success {
+            background: #10b981;
+            color: white;
+        }
+        .notification.error {
+            background: #ef4444;
+            color: white;
+        }
+        .notification.info {
+            background: #3b82f6;
+            color: white;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Démarrer l'application
+document.addEventListener('DOMContentLoaded', initApp);

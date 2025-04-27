@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panier - Boutique PC</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">Boutique PC</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="products.html">Produits</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button id="wishlist-btn" class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="wishlist-count">0</span>
+                </button>
+                <a href="cart.html" class="cart-icon active">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="cart-section">
+        <h1>Votre Panier</h1>
+        
+        <div id="cart-items" class="cart-items">
+            <!-- Les articles du panier seront chargés ici -->
+        </div>
+        
+        <div class="cart-summary">
+            <div class="cart-total">
+                <h3>Total</h3>
+                <p class="total-price">0.00€</p>
+            </div>
+            <div class="cart-actions">
+                <button id="clear-cart" class="btn danger">Vider le panier</button>
+                <button id="checkout-btn" class="btn primary">Passer la commande</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-nav">
+            <a href="index.html">Accueil</a>
+            <a href="products.html">Produits</a>
+            <a href="cart.html">Panier</a>
+        </div>
+    </footer>
+
+    <script type="module" src="js/cart.js"></script>
+</body>
+</html> 
