@@ -1,5 +1,11 @@
-Pour lancer le site il faut aller dans la partie Backend et effectuer la commande
+# Pour lancer le site il faut aller dans la partie Backend et effectuer la commande :
 
-# npm install
+cd backend/
 
-Ensuite aller dans la partie frontend et lancer en live server le index html
+npm install
+
+# Ensuite
+
+npm start
+
+# Ensuite il faut aller dans la partie frontend et lancer en live server le index HTML.
